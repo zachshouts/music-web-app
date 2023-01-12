@@ -11,3 +11,4 @@ fetch(endpoint)
 //Retrieve artist data
 .then(function(data){
   console.log(data)})
+ 
