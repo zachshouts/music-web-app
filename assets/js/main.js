@@ -1,12 +1,23 @@
 const apikey = "862d8de8876f6a203cf76dea7a7e3cec";
 const button = $(".btn");
 
-let nameArr = JSON.parse(localStorage.getItem("artistHistory"));
-if (nameArr === null) {
-  nameArr = [];
-}
+let nameArr = JSON.parse(localStorage.getItem("artistHistory") || "[]");
 
-function loadHistory() {}
+loadHistory();
+
+function loadHistory() {
+  let historyList = $(".list-group");
+  historyList.empty();
+  if (nameArr.length > 6) {
+    for (i = 0; i < 6; i++) {
+      historyList.append(`<li class="list-group-item">${nameArr[i]}</li>`);
+    }
+  } else {
+    nameArr.forEach((element) =>
+      historyList.append(`<li class="list-group-item">${element}</li>`)
+    );
+  }
+}
 
 button.on("click", function (event) {
   searchArtist();
@@ -35,10 +46,19 @@ function findArtist(artist) {
       storeNames();
 
       function storeNames() {
-        let artistName = data.topalbums.attr.artist;
+        let artistName = data.topalbums["@attr"].artist;
+        if (nameArr.length > 0) {
+          const index = nameArr.findIndex((element) =>
+            element.includes(artist)
+          );
+          if (index !== -1) {
+            nameArr.splice(index, 1);
+          }
+        }
         nameArr.push(artistName);
-        console.log(nameArr);
+
         localStorage.setItem("artistHistory", JSON.stringify(nameArr));
+        loadHistory();
       }
     });
 }
