@@ -1,0 +1,15 @@
+
+#carousel {
+    background-color: rgba(0, 0, 0, 0.498)
+}
+
+.glide__slide {
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 20px;
+    padding-top: 1rem;
+}
+
+.glide__slide p {
+    margin-top: 10px;
+}
