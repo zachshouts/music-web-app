@@ -4,11 +4,16 @@
 
 .glide__slide {
   text-align: center;
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 20px;
   padding-top: 1rem;
+  box-shadow: 2px 1px 3px black, -2px 1px 3px black;
 }
 
 .glide__slide p {
   margin-top: 10px;
+  font-size: 1.2rem;
+  background-color: black;
+  color: white;
+  font-weight: bold;
 }

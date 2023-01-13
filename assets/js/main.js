@@ -1,4 +1,16 @@
 const apikey = "862d8de8876f6a203cf76dea7a7e3cec";
+const glideConfig = {
+  type: 'carousel',
+  perView: 3,
+  gap: 10,
+  length: 10,
+  breakpoints: {
+    768: { perView: 1 },
+    1200: { perView: 2 }
+  }
+}
+let glide = new Glide('.glide', glideConfig).mount()
+const glidesList = $('.glide__slides')
 const button = $(".btn");
 
 let nameArr = JSON.parse(localStorage.getItem("artistHistory") || "[]");
@@ -6,7 +18,7 @@ let nameArr = JSON.parse(localStorage.getItem("artistHistory") || "[]");
 loadHistory();
 
 function loadHistory() {
-  let historyList = $(".list-group");
+  const historyList = $(".list-group");
   historyList.empty();
   if (nameArr.length > 6) {
     for (i = 0; i < 6; i++) {
@@ -20,8 +32,8 @@ function loadHistory() {
 }
 
 button.on("click", function (event) {
-  searchArtist();
   event.preventDefault();
+  searchArtist();
 });
 
 function searchArtist() {
@@ -32,7 +44,7 @@ function searchArtist() {
 }
 
 function findArtist(artist) {
-  const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopAlbums&artist=${artist}&api_key=${apikey}&format=json&limit=5`;
+  const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopAlbums&artist=${artist}&api_key=${apikey}&format=json&limit=10`;
 
   fetch(endpoint)
     .then(function (response) {
@@ -42,6 +54,13 @@ function findArtist(artist) {
     //Retrieve artist data
     .then(function (data) {
       console.log(data);
+
+      for (let i = 0; i < 10; i++) {
+        const liItem = $(`.glide-${i+1}`)
+        for (let x = 0; x < liItem.length; x++) {
+          liItem[x].innerHTML = `<img src="${data.topalbums.album[i].image[3]['#text']}" /><p>${data.topalbums.album[i].name}</p>`
+        }
+      }
 
       storeNames();
 
