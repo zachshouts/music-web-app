@@ -1,12 +1,16 @@
 const apikey = "862d8de8876f6a203cf76dea7a7e3cec";
 const glideConfig = {
   type: 'carousel',
-  perView: 3,
+  perView: 5,
   gap: 10,
   length: 10,
+  focusAt: 'center',
+  startAt: 1,
   breakpoints: {
     768: { perView: 1 },
-    1200: { perView: 2 }
+    1200: { perView: 2 },
+    1300: { perView: 3 },
+    1700: { perView: 4 }
   }
 }
 let glide = new Glide('.glide', glideConfig).mount()
