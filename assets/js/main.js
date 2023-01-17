@@ -1,4 +1,5 @@
 const apikey = "862d8de8876f6a203cf76dea7a7e3cec";
+let artist = "";
 const glideConfig = {
   type: 'carousel',
   perView: 5,
@@ -26,14 +27,20 @@ function loadHistory() {
   historyList.empty();
   if (nameArr.length > 6) {
     for (i = 0; i < 6; i++) {
-      historyList.append(`<li class="list-group-item">${nameArr[i]}</li>`);
+      historyList.append(`<li class="list-group-item" onclick="artistInfo(event)">${nameArr[i]}</li>`);
     }
   } else {
     nameArr.forEach((element) =>
-      historyList.append(`<li class="list-group-item">${element}</li>`)
+      historyList.append(`<li class="list-group-item" onclick="artistInfo(event)">${element}</li>`)
     );
   }
 }
+
+function artistInfo(event){
+  artist = event.target.textContent;
+  findArtist(artist);
+}
+
 
 button.on("click", function (event) {
   event.preventDefault();
@@ -41,10 +48,10 @@ button.on("click", function (event) {
 });
 
 function searchArtist() {
-  let artist = "";
+  
   const searchBox = $(".form-control");
   artist = searchBox.val();
-  let artistData = findArtist(artist);
+  findArtist(artist);
 }
 
 function findArtist(artist) {
