@@ -18,6 +18,10 @@ const glideConfig = {
 let glide = new Glide('.glide', glideConfig).mount()
 const glidesList = $('.glide__slides')
 const button = $(".btn");
+const infoBtn = $('#info-btn');
+const infoBox = $('#info-box');
+const topTracks = $('#top-tracks');
+const searchBox = $(".form-control");
 
 let nameArr = JSON.parse(localStorage.getItem("artistHistory") || "[]");
 
@@ -50,7 +54,6 @@ button.on("click", function (event) {
 
 function searchArtist() {
   
-  const searchBox = $(".form-control");
   artist = searchBox.val();
   findArtist(artist);
 }
@@ -93,3 +96,37 @@ function findArtist(artist) {
       }
     });
 }
+
+function setInfoBox () {
+  const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&artist=${artist}&api_key=${apikey}&format=json&limit=10`
+  
+    fetch(endpoint)
+      .then(function(response) {
+        return response.json();
+      })
+  
+      .then(function(data) {
+        for (let i = 0; i < 10; i++){
+          const newRow = $('<div>').addClass('row');
+          const bigCol = $('<div>').addClass('col-8');
+          const smallCol = $('<div>').addClass('col-4').attr('style', 'text-align: center;');
+  
+          bigCol.append($('<p>').addClass('px-3').text(data.toptracks.track[i].name));
+          smallCol.append($('<p>').text(data.toptracks.track[i].playcount));
+          newRow.append(bigCol, smallCol);
+          topTracks.append(newRow);
+        }
+      })
+}
+
+infoBtn.on('click', function(e) {
+  if (e.target.textContent === 'View More') {
+    e.target.textContent = "View Less";
+    infoBox.attr('style', 'visibility: visible;');
+    
+  } else {
+    e.target.textContent = "View More";
+    infoBox.attr('style', 'visibility: hidden;');
+  }
+
+})
