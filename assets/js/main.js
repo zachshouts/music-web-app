@@ -1,22 +1,22 @@
 const apikey = "862d8de8876f6a203cf76dea7a7e3cec";
 let artist = "";
 const glideConfig = {
-  type: 'carousel',
+  type: "carousel",
   perView: 5,
   gap: 10,
   length: 10,
-  focusAt: 'center',
+  focusAt: "center",
   startAt: 1,
   // autoplay: 4000,
   breakpoints: {
     768: { perView: 1 },
     1200: { perView: 2 },
     1300: { perView: 3 },
-    1700: { perView: 4 }
-  }
-}
-let glide = new Glide('.glide', glideConfig).mount()
-const glidesList = $('.glide__slides')
+    1700: { perView: 4 },
+  },
+};
+let glide = new Glide(".glide", glideConfig).mount();
+const glidesList = $(".glide__slides");
 const button = $("#submit-btn");
 
 let nameArr = JSON.parse(localStorage.getItem("artistHistory") || "[]");
@@ -28,20 +28,23 @@ function loadHistory() {
   historyList.empty();
   if (nameArr.length > 6) {
     for (i = 0; i < 6; i++) {
-      historyList.append(`<li class="list-group-item" onclick="artistInfo(event)">${nameArr[i]}</li>`);
+      historyList.append(
+        `<li class="list-group-item" onclick="artistInfo(event)">${nameArr[i]}</li>`
+      );
     }
   } else {
     nameArr.forEach((element) =>
-      historyList.append(`<li class="list-group-item" onclick="artistInfo(event)">${element}</li>`)
+      historyList.append(
+        `<li class="list-group-item" onclick="artistInfo(event)">${element}</li>`
+      )
     );
   }
 }
 
-function artistInfo(event){
+function artistInfo(event) {
   artist = event.target.textContent;
   findArtist(artist);
 }
-
 
 button.on("click", function (event) {
   event.preventDefault();
@@ -49,13 +52,11 @@ button.on("click", function (event) {
 });
 
 function searchArtist() {
-  
   const searchBox = $(".form-control");
   artist = searchBox.val();
   searchBox.val("");
   findArtist(artist);
-  }
-
+}
 
 function findArtist(artist) {
   const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopAlbums&artist=${artist}&api_key=${apikey}&format=json&limit=10`;
@@ -68,9 +69,11 @@ function findArtist(artist) {
     //Retrieve artist data
     .then(function (data) {
       for (let i = 0; i < 10; i++) {
-        const liItem = $(`.glide-${i+1}`)
+        const liItem = $(`.glide-${i + 1}`);
         for (let x = 0; x < liItem.length; x++) {
-          liItem[x].innerHTML = `<img src="${data.topalbums.album[i].image[3]['#text']}" /><p>${data.topalbums.album[i].name}</p>`
+          liItem[
+            x
+          ].innerHTML = `<img src="${data.topalbums.album[i].image[3]["#text"]}" /><p>${data.topalbums.album[i].name}</p>`;
         }
       }
 
@@ -92,4 +95,14 @@ function findArtist(artist) {
         loadHistory();
       }
     });
+}
+
+currentSlide = $(".glide__slides");
+currentSlide.on("click", function () {
+  searchAlbum();
+});
+
+function searchAlbum() {
+  currentSlide = $(".glide__slide--active");
+  console.log(currentSlide.children("p").text());
 }
