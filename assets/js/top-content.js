@@ -38,7 +38,21 @@ function getTopTracks() {
     })
     //Retrieve top artists data
     .then(function (data) {
-      console.log(data);
+      // Render HTML element to show top 10 tracks here
+      console.log(data.tracks.track);
+
+      const arrayList = data.tracks.track;
+
+      arrayList.forEach((track) => {
+        console.log("inside Array",track.name);
+        
+        const liElement = $("<li/>", {
+          text: `${track.name}`
+        })
+
+        $("#top-track-list").append(liElement);
+      })
+
     });
 }
 

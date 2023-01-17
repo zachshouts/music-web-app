@@ -7,6 +7,7 @@ const glideConfig = {
   length: 10,
   focusAt: 'center',
   startAt: 1,
+  // autoplay: 4000,
   breakpoints: {
     768: { perView: 1 },
     1200: { perView: 2 },
