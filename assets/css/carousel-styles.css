@@ -20,20 +20,6 @@
   transform: scale(.9);
 }
 
-/* .glide__slide img {
-  filter: blur(6px);
-  opacity: .7;
-  transition: .3s linear;
-  transform: scale(.9);
-}
-
-.glide__slide--active img {
-  filter: none;
-  opacity: 1;
-  transform: scale(1);
-} */
-
-
 
 .glide__slide p {
   margin-top: 10px;
