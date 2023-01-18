@@ -22,14 +22,23 @@ header {
 
 .card {
   background-color: #121212;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-  border: 1px solid white;
+  /* box-shadow: 0px 2px 10px rgb(255 255 255 / 50%);
+  border: 1px solid white; */
 }
 
 .artist-img {
   width: 64px;
   height: 64px;
   object-fit: cover;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin-top: 1rem;
+  padding: 0;
 }
 
 #info-box {
