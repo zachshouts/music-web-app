@@ -159,8 +159,17 @@ function searchAlbum(artist) {
       albumTitle.text("");
       albumTrack.text("");
       albumTitle.text(data.album.name);
-      for (i = 0; i < data.album.tracks.track.length; i++) {
-        albumTrack.append($(`<li>`).text(data.album.tracks.track[i].name));
+      try {
+        if (!Array.isArray(data.album.tracks.track)) {
+          albumTrack.append($(`<li>`).text(data.album.tracks.track.name));
+          
+        } else {
+          for (i = 0; i < data.album.tracks.track.length; i++) {
+            albumTrack.append($(`<li>`).text(data.album.tracks.track[i].name));
+          }
+        }
+      } catch (exceptionError){
+        window.alert("Tracks are unavailable for this album");
       }
     });
 }
