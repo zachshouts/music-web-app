@@ -147,8 +147,6 @@ function searchAlbum(artist) {
 
   const target = `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${apikey}&artist=${artistJoin}&album=${albumJoin}&format=json`;
 
-  console.log(target);
-
   fetch(target)
     .then(function (response) {
       return response.json();
@@ -163,7 +161,6 @@ function searchAlbum(artist) {
       albumTitle.text(data.album.name);
       for (i = 0; i < data.album.tracks.track.length; i++) {
         albumTrack.append($(`<li>`).text(data.album.tracks.track[i].name));
-        console.log(`${data.album.tracks.track[i].name}`);
       }
     });
 }
