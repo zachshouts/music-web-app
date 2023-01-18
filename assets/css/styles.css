@@ -1,6 +1,12 @@
 body {
-  background-color: #121212;
-  color: white;
+    background-color: #121212;
+    color: white;
+  }
+
+header {
+  padding-bottom: .5rem;
+  border-bottom: 1px solid black;
+  box-shadow: 0px 1px 3px black;
 }
 
 .card {
@@ -13,4 +19,51 @@ body {
   width: 64px;
   height: 64px;
   object-fit: cover;
+}
+
+#info-box {
+  visibility: hidden;
+}
+
+#top-tracks h3 {
+  text-align: center;
+  margin-bottom: 1.3rem;
+}
+
+#top-albums h3 {
+  text-align: center;
+  margin-bottom: 1.3rem;
+}
+
+#top-tracks h5 {
+  text-align: center;
+  border: 1px solid black;
+  padding: 1rem;
+}
+
+#top-albums h5 {
+  text-align: center;
+  border: 1px solid black;
+  padding: 1rem;
+}
+
+#past-searches li {
+  background-color: #121212;
+  color: white;
+  margin: .5rem;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px #47FFBE, -1px -1px 3px #47FFBE;
+  text-align: center;
+}
+
+
+#info-btn {
+  color: white;
+  border-color: white;
+  box-shadow: 1px 1px 5px #47FFBE, -1px -1px 3px #47FFBE;
+}
+
+#submit-btn {
+  color: white;
+  border-color: #47FFBE;
 }

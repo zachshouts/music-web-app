@@ -18,6 +18,11 @@ const glideConfig = {
 let glide = new Glide('.glide', glideConfig).mount()
 const glidesList = $('.glide__slides')
 const button = $("#submit-btn");
+const infoBtn = $('#info-btn');
+const infoBox = $('#info-box');
+const topTracks = $('#top-track-list');
+const topAlbums = $('#top-albums-list');
+const searchBox = $(".form-control");
 
 let nameArr = JSON.parse(localStorage.getItem("artistHistory") || "[]");
 
@@ -46,11 +51,11 @@ function artistInfo(event){
 button.on("click", function (event) {
   event.preventDefault();
   searchArtist();
+  
 });
 
 function searchArtist() {
   
-  const searchBox = $(".form-control");
   artist = searchBox.val();
   searchBox.val("");
   findArtist(artist);
@@ -58,6 +63,8 @@ function searchArtist() {
 
 
 function findArtist(artist) {
+  topAlbums.empty();
+  setInfoBox();
   const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopAlbums&artist=${artist}&api_key=${apikey}&format=json&limit=10`;
 
   fetch(endpoint)
@@ -68,10 +75,21 @@ function findArtist(artist) {
     //Retrieve artist data
     .then(function (data) {
       for (let i = 0; i < 10; i++) {
+        // Glide rendering
         const liItem = $(`.glide-${i+1}`)
         for (let x = 0; x < liItem.length; x++) {
           liItem[x].innerHTML = `<img src="${data.topalbums.album[i].image[3]['#text']}" /><p>${data.topalbums.album[i].name}</p>`
         }
+
+        // Info box albums rendering
+        const newRow = $('<div>').addClass('row');
+        const bigCol = $('<div>').addClass('col-8');
+        const smallCol = $('<div>').addClass('col-4').attr('style', 'text-align: center;');
+
+        bigCol.append($('<p>').addClass('px-3').text(data.topalbums.album[i].name));
+        smallCol.append($('<p>').text(data.topalbums.album[i].playcount));
+        newRow.append(bigCol, smallCol);
+        topAlbums.append(newRow);
       }
 
       storeNames();
@@ -93,3 +111,38 @@ function findArtist(artist) {
       }
     });
 }
+
+function setInfoBox() {
+  topTracks.empty();
+  const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&artist=${artist}&api_key=${apikey}&format=json&limit=10`
+  
+    fetch(endpoint)
+      .then(function(response) {
+        return response.json();
+      })
+  
+      .then(function(data) {
+        for (let i = 0; i < 10; i++){
+          const newRow = $('<div>').addClass('row');
+          const bigCol = $('<div>').addClass('col-8');
+          const smallCol = $('<div>').addClass('col-4').attr('style', 'text-align: center;');
+  
+          bigCol.append($('<p>').addClass('px-3').text(data.toptracks.track[i].name));
+          smallCol.append($('<p>').text(data.toptracks.track[i].playcount));
+          newRow.append(bigCol, smallCol);
+          topTracks.append(newRow);
+        }
+      })
+}
+
+infoBtn.on('click', function(e) {
+  if (e.target.textContent === 'View More') {
+    e.target.textContent = "View Less";
+    infoBox.attr('style', 'visibility: visible;');
+    
+  } else {
+    e.target.textContent = "View More";
+    infoBox.attr('style', 'visibility: hidden;');
+  }
+
+})
