@@ -31,6 +31,7 @@ let nameArr = JSON.parse(localStorage.getItem("artistHistory") || "[]");
 
 loadHistory();
 
+
 //Load past searches
 function loadHistory() {
   const historyList = $(".list-group");
@@ -53,7 +54,7 @@ function loadHistory() {
 //Find artist info from past searches
 function artistInfo(event) {
   artist = event.target.textContent;
-  findArtist(artist);
+  findArtist();
 }
 
 //Set up search box
@@ -69,7 +70,7 @@ function searchArtist() {
 
   artist = searchBox.val();
   searchBox.val("");
-  findArtist(artist);
+  findArtist();
 }
 
 //Set up modal
@@ -83,7 +84,7 @@ startSlide.on("click", function () {
   searchAlbum(artist);
 });
 
-function findArtist(artist) {
+function findArtist() {
   topAlbums.empty();
   setInfoBox();
   const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopAlbums&artist=${artist}&api_key=${apikey}&format=json&limit=10`;
@@ -209,3 +210,4 @@ infoBtn.on('click', function(e) {
 
 })
 
+findArtist();
