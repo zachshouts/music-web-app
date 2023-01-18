@@ -1,7 +1,10 @@
+//Set global variables
 const apikey = "862d8de8876f6a203cf76dea7a7e3cec";
-let artist = "";
+let artist = "Ed Sheeran";
+let nameArr = JSON.parse(localStorage.getItem("artistHistory") || "[]");
 const button = $("#submit-btn");
 
+//Set up carousel
 const glideConfig = {
   type: "carousel",
   perView: 5,
@@ -17,19 +20,13 @@ const glideConfig = {
     1700: { perView: 4 },
   },
 };
-
+//Display carousel
 let glide = new Glide(".glide", glideConfig).mount();
 const glidesList = $(".glide__slides");
 
-currentSlide = $(".glide__slides");
-currentSlide.on("click", function () {
-  searchAlbum();
-});
-
-let nameArr = JSON.parse(localStorage.getItem("artistHistory") || "[]");
-
 loadHistory();
 
+//Load past searches
 function loadHistory() {
   const historyList = $(".list-group");
   historyList.empty();
@@ -48,22 +45,36 @@ function loadHistory() {
   }
 }
 
+//Find artist info from past searches
 function artistInfo(event) {
   artist = event.target.textContent;
   findArtist(artist);
 }
 
+//Set up search box
 button.on("click", function (event) {
   event.preventDefault();
   searchArtist();
 });
 
+//Find artist info from search box
 function searchArtist() {
   const searchBox = $(".form-control");
   artist = searchBox.val();
   searchBox.val("");
   findArtist(artist);
 }
+
+//Set up modal
+// const myModal = new bootstrap.Modal(document.getElementById("myModal"));
+const modalBtn = document.getElementById("modal-button");
+startSlide = $(".glide__slides");
+startSlide.attr("data-bs-toggle", "modal");
+startSlide.attr("data-bs-target", "#myModal");
+//Display modal
+startSlide.on("click", function () {
+  searchAlbum(artist);
+});
 
 function findArtist(artist) {
   const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopAlbums&artist=${artist}&api_key=${apikey}&format=json&limit=10`;
@@ -85,7 +96,7 @@ function findArtist(artist) {
       }
 
       storeNames();
-
+      //Store artist name is past searches
       function storeNames() {
         let artistName = data.topalbums["@attr"].artist;
         if (nameArr.length > 0) {
@@ -104,7 +115,24 @@ function findArtist(artist) {
     });
 }
 
-function searchAlbum() {
-  currentSlide = $(".glide__slide--active");
-  console.log(currentSlide.children("p").text());
+function searchAlbum(artist) {
+  let currentSlide = $(".glide__slide--active");
+  let album = currentSlide.children("p").text();
+  let artistJoin = artist.split(" ").join("+");
+  let albumJoin = album.split(" ").join("+");
+  if ((albumJoin = "+")) {
+    albumJoin = "%252B";
+  }
+
+  const target = `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${apikey}&artist=${artistJoin}&album=${albumJoin}&format=json`;
+
+  fetch(target)
+    .then(function (response) {
+      return response.json();
+    })
+
+    //Retrieve artist data
+    .then(function (data) {
+      console.log(data);
+    });
 }
