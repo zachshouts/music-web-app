@@ -1,5 +1,7 @@
 const apikey = "862d8de8876f6a203cf76dea7a7e3cec";
 let artist = "";
+const button = $("#submit-btn");
+
 const glideConfig = {
   type: "carousel",
   perView: 5,
@@ -15,9 +17,14 @@ const glideConfig = {
     1700: { perView: 4 },
   },
 };
+
 let glide = new Glide(".glide", glideConfig).mount();
 const glidesList = $(".glide__slides");
-const button = $("#submit-btn");
+
+currentSlide = $(".glide__slides");
+currentSlide.on("click", function () {
+  searchAlbum();
+});
 
 let nameArr = JSON.parse(localStorage.getItem("artistHistory") || "[]");
 
@@ -96,11 +103,6 @@ function findArtist(artist) {
       }
     });
 }
-
-currentSlide = $(".glide__slides");
-currentSlide.on("click", function () {
-  searchAlbum();
-});
 
 function searchAlbum() {
   currentSlide = $(".glide__slide--active");
