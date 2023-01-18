@@ -91,3 +91,8 @@ hr {
   color: white;
   border-color: #47FFBE;
 }
+.track-img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
