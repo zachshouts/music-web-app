@@ -127,7 +127,7 @@ function findArtist(artist) {
             nameArr.splice(index, 1);
           }
         }
-        nameArr.push(artistName);
+        nameArr.unshift(artistName);
 
         localStorage.setItem("artistHistory", JSON.stringify(nameArr));
         loadHistory();
