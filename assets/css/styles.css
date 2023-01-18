@@ -76,6 +76,10 @@ hr {
   text-align: center;
 }
 
+#past-searches li:hover {
+  cursor: pointer;
+}
+
 
 #info-btn {
   color: white;
