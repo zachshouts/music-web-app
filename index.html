@@ -37,30 +37,15 @@
 
   <body>
     <header class="row" id="nav-bar">
-      <nav class="navbar bg-body-tertiary">
+      <nav class="navbar bg-body-primary">
         <div class="container-fluid">
-          <a class="navbar-brand"></a>
 
-          <ul
-            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
-          >
-            <li>
-              <a
-                href="./pages/top-content.html"
-                class="nav-link px-2 text-secondary"
-                >Top Artists</a
-              >
-            </li>
-            <li>
-              <a
-                href="./pages/top-content.html"
-                class="nav-link px-2 text-secondary"
-                >Top Tracks</a
-              >
-            </li>
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-lg-4">
+            <li><a href="./pages/top-content.html" class="nav-link px-2 text-secondary">Top Artists</a></li>
+            <li><a href="./pages/top-content.html" class="nav-link px-2 text-secondary">Top Tracks</a></li>
           </ul>
 
-          <form class="d-flex" role="search">
+          <form class="d-flex mx-sm-auto mx-lg-4" role="search">
             <input
               class="form-control me-2"
               type="search"
@@ -78,6 +63,10 @@
         </div>
       </nav>
     </header>
+
+    <!-- <div class="container-fluid mt-3">
+      
+    </div> -->
 
     <main class="container-fluid my-4">
       <div class="row" id="carousel">
@@ -157,20 +146,46 @@
         </div>
       </div>
       <!--***CAROUSEL HERE***-->
+      <div class="row my-4" id="past-searches">
+        <ul class="list-group list-group-horizontal-md d-flex justify-content-center m-1"></ul>
+      </div>
+
       <div class="row col-sm-3 col-xl-2 my-3 mx-auto" id="view-more">
-        <button type="button" class="btn btn-outline-secondary">
-          View More
-        </button>
+        <button type="button" class="btn btn-outline-secondary" id="info-btn">View More</button>
+      </div>
+
+
+      <div class="container-fluid" id="info-box">
+        <div class="row">
+          <div class="col-12 col-md-6" id="top-tracks">
+            <h3>Songs</h3>
+            <div class="row">
+              <div class="col-8">
+                <h5>Name</h5>
+              </div>
+              <div class="col-4">
+                <h5>Plays</h5>
+              </div>
+            </div>
+            <div class="container-fluid" id="top-track-list"></div>
+          </div>
+          <div class="col-12 col-md-6" id="top-albums">
+            <h3>Albums</h3>
+            <div class="row">
+              <div class="col-8">
+                <h5>Name</h5>
+              </div>
+              <div class="col-4">
+                <h5>Plays</h5>
+              </div>
+            </div>
+            <div class="container-fluid" id="top-albums-list"></div>
+          </div>
+        </div>
       </div>
     </main>
 
-    <div class="container-fluid">
-      <div class="row" id="past-searches">
-        <ul
-          class="list-group list-group-horizontal-sm d-flex justify-content-center"
-        ></ul>
-      </div>
-    </div>
+    
 
     <!-- Modal -->
     <div
