@@ -1,9 +1,19 @@
-
 body {
     background-color: #121212;
     color: white;
   }
 
+.card {
+  background-color: #121212;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  border: 1px solid white;
+}
+
+.artist-img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
 
 #info-box {
   visibility: hidden;

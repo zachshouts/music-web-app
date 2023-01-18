@@ -17,7 +17,7 @@ const glideConfig = {
 }
 let glide = new Glide('.glide', glideConfig).mount()
 const glidesList = $('.glide__slides')
-const button = $(".btn");
+const button = $("#submit-btn");
 const infoBtn = $('#info-btn');
 const infoBox = $('#info-box');
 const topTracks = $('#top-tracks');
@@ -55,8 +55,10 @@ button.on("click", function (event) {
 function searchArtist() {
   
   artist = searchBox.val();
+  searchBox.val("");
   findArtist(artist);
-}
+  }
+
 
 function findArtist(artist) {
   const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopAlbums&artist=${artist}&api_key=${apikey}&format=json&limit=10`;
@@ -68,8 +70,6 @@ function findArtist(artist) {
 
     //Retrieve artist data
     .then(function (data) {
-      console.log(data);
-
       for (let i = 0; i < 10; i++) {
         const liItem = $(`.glide-${i+1}`)
         for (let x = 0; x < liItem.length; x++) {
