@@ -1,8 +1,6 @@
 //Set global variables
 const apikey = "862d8de8876f6a203cf76dea7a7e3cec";
 let artist = "Ed Sheeran";
-let nameArr = JSON.parse(localStorage.getItem("artistHistory") || "[]");
-const button = $("#submit-btn");
 
 //Set up carousel
 const glideConfig = {
