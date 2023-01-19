@@ -164,10 +164,26 @@ function searchAlbum(artist) {
       albumTitle.text(data.album.name);
       try {
         if (!Array.isArray(data.album.tracks.track)) {
-          albumTrack.append($(`<li>`).text(data.album.tracks.track.name));
+          let listTag = $(`<li>`);
+          listTag.append(
+            $(`<a>`)
+              .attr("href", data.album.tracks.track.url)
+              .text(data.album.tracks.track.name)
+              .attr("style", "text-decoration: none; color: #47FFBE;")
+              .attr("target", "_blank;")
+          );
+          albumTrack.append(listTag);
         } else {
           for (i = 0; i < data.album.tracks.track.length; i++) {
-            albumTrack.append($(`<li>`).text(data.album.tracks.track[i].name));
+            let listTag = $(`<li>`);
+            listTag.append(
+              $(`<a>`)
+                .attr("href", data.album.tracks.track[i].url)
+                .text(data.album.tracks.track[i].name)
+                .attr("style", "text-decoration: none; color: #47FFBE;")
+                .attr("target", "_blank;")
+            );
+            albumTrack.append(listTag);
           }
         }
       } catch (exceptionError) {
