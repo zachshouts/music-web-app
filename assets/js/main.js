@@ -171,7 +171,7 @@ function searchAlbum(artist) {
           }
         }
       } catch (exceptionError) {
-        window.alert("Tracks are unavailable for this album");
+        albumTrack.append("<li>Tracks are unavailable for this album<li>");
       }
     });
 }
