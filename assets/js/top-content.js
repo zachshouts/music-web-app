@@ -15,18 +15,18 @@ const imgArtistArr = [
 
 const topArticlesElement = $("#top-article-list");
 
-const imgTrackArr = [
-  "../assets/img/tracks/killbill.png",
-  "../assets/img/tracks/antihero.png",
+const imgTrackArr = [ 
   "../assets/img/tracks/asitwas.png",
-  "../assets/img/tracks/badhabit.png",
-  "../assets/img/tracks/lastchristmas.png",
+  "../assets/img/tracks/antihero.png",
   "../assets/img/tracks/alliwantforchristmas.png",
-  "../assets/img/tracks/low.png",
-  "../assets/img/tracks/creepin.png",
+  "../assets/img/tracks/badhabit.png",
+  "../assets/img/tracks/killbill.png",
+  "../assets/img/tracks/lastchristmas.png",
   "../assets/img/tracks/shirt.png",
+  "../assets/img/tracks/creepin.png",
+  "../assets/img/tracks/low.png",
   "../assets/img/tracks/nobodygetsme.png",
-];
+  ];
 
 const w = window.innerWidth;
 
@@ -115,12 +115,25 @@ function getTopTracks() {
 
       const arrayList = data.tracks.track;
 
+      arrayList.sort((prev, next) => {
+        return next.playcount - prev.playcount;
+      });
+
       arrayList.forEach((track, index) => {
         console.log("inside Array", track.name);
 
         topTracksElement.append(
           $("<div/>", {
-            class: "col-2 mb-3",
+            class:
+              "col-12 col-sm-1 d-flex justify-content-center justify-content-sm-start align-items-center mb-3 fs-1",
+            text: `${index + 1}`,
+          })
+        );
+
+        topTracksElement.append(
+          $("<div/>", {
+            class:
+              "col-12 col-sm-2 d-flex justify-content-center justify-content-sm-start align-items-center mb-3",
           }).append(
             $("<img />", { class: "track-img" }).attr("src", imgTrackArr[index]) // Replace the imgArr to imgTrackArr
           )
@@ -128,21 +141,25 @@ function getTopTracks() {
 
         topTracksElement.append(
           $("<div/>", {
-            class: "col-2 mb-3 custom-font-color",
+            class:
+              "col-12 col-sm-3 d-flex justify-content-center justify-content-sm-start align-items-center mb-3 custom-font-color",
             text: `${track.name}`,
           })
         );
 
         topTracksElement.append(
           $("<div/>", {
-            class: "col-2 mb-3",
+            class:
+              "col-12 col-sm-3 d-flex justify-content-center justify-content-sm-start align-items-center mb-3 text-warning",
             text: `${track.listeners}`,
           })
         );
 
         topTracksElement.append(
           $("<div/>", {
-            class: "col-6 mb-3",
+            class: `col-12 col-sm-3 d-flex justify-content-center justify-content-sm-start align-items-center mb-3 text-playcount-${
+              arrayList.length - index
+            }`,
             text: `${track.playcount}`,
           })
         );
