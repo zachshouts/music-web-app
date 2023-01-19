@@ -13,7 +13,20 @@ const imgArtistArr = [
   "../assets/img/artists/tyler.png",
 ];
 
-const topTracksElement = $("#top-article-list");
+const topArticlesElement = $("#top-article-list");
+
+const imgTrackArr = [
+  "../assets/img/tracks/killbill.png",
+  "../assets/img/tracks/antihero.png",
+  "../assets/img/tracks/asitwas.png",
+  "../assets/img/tracks/badhabit.png",
+  "../assets/img/tracks/lastchristmas.png",
+  "../assets/img/tracks/alliwantforchristmas.png",
+  "../assets/img/tracks/low.png",
+  "../assets/img/tracks/creepin.png",
+  "../assets/img/tracks/shirt.png",
+  "../assets/img/tracks/nobodygetsme.png",
+];
 
 function getTopArtists() {
   const endpoint = `http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${apikey}&format=json&limit=10`;
@@ -26,14 +39,14 @@ function getTopArtists() {
     .then(function (data) {
       const artistList = data.artists.artist;
       artistList.forEach((a, index) => {
-        topTracksElement.append(
+        topArticlesElement.append(
           $("<div/>", {
             class: "col-1 d-flex align-items-center",
             text: `${index + 1}`,
           })
         );
 
-        topTracksElement.append(
+        topArticlesElement.append(
           $("<div/>", {
             id: `artist-img-${index}`,
             class: "col-2 d-flex align-items-center",
@@ -45,7 +58,7 @@ function getTopArtists() {
           )
         );
 
-        topTracksElement.append(
+        topArticlesElement.append(
           $("<div/>", {
             id: `artist-name-${index}`,
             class: "col-3 d-flex align-items-center",
@@ -53,24 +66,27 @@ function getTopArtists() {
           })
         );
 
-        topTracksElement.append(
+        topArticlesElement.append(
           $("<div/>", {
             class: "col-3 d-flex align-items-center",
             text: `${a.listeners}`,
           })
         );
 
-        topTracksElement.append(
+        topArticlesElement.append(
           $("<div/>", {
             class: "col-3 d-flex align-items-center",
             text: `${a.playcount}`,
           })
         );
 
-        topTracksElement.append($("<hr />", {}));
+        topArticlesElement.append($("<hr />", {}));
       });
     });
 }
+
+
+const topTracksElement = $("#top-track-list")
 
 function getTopTracks() {
   const endpoint = `http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=${apikey}&format=json&limit=10`;
@@ -86,15 +102,28 @@ function getTopTracks() {
 
       const arrayList = data.tracks.track;
 
-      arrayList.forEach((track) => {
-        console.log("inside Array", track.name);
+      arrayList.forEach((track, index) => {
+        console.log("inside Array",track.name);
 
-        const liElement = $("<li/>", {
-          text: `${track.name}`,
-        });
+        topTracksElement.append($("<div/>", {
+          class: 'col-6',
+        }).append($("<img />", {class: "track-img"})
+        .attr('src', imgTrackArr[index]) // Replace the imgArr to imgTrackArr
+    ));
 
-        $("#top-track-list").append(liElement);
-      });
+
+    topTracksElement.append( $("<div/>", {
+      class: "col-6",
+      text: `${track.name}`,
+    }))
+        
+        // const liElement = $("<li/>", {
+        //   text: `${track.name}`
+        // })
+
+        // $("#top-track-list").append(liElement);
+      })
+
     });
 }
 
