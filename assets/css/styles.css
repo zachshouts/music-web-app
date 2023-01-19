@@ -96,3 +96,7 @@ hr {
   height: 64px;
   object-fit: cover;
 }
+
+.custom-font-color {
+  color: red;
+}

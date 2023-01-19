@@ -107,7 +107,7 @@ function getTopTracks() {
 
         topTracksElement.append(
           $("<div/>", {
-            class: "col-6",
+            class: "col-2 mb-3",
           }).append(
             $("<img />", { class: "track-img" }).attr("src", imgTrackArr[index]) // Replace the imgArr to imgTrackArr
           )
@@ -115,10 +115,32 @@ function getTopTracks() {
 
         topTracksElement.append(
           $("<div/>", {
-            class: "col-6",
+            class: "col-2 mb-3 custom-font-color",
             text: `${track.name}`,
           })
         );
+
+        topTracksElement.append(
+          $("<div/>", {
+            class: "col-2 mb-3",
+            text: `${track.listeners}`,
+          })
+        );
+
+        topTracksElement.append(
+          $("<div/>", {
+            class: "col-6 mb-3",
+            text: `${track.playcount}`,
+          })
+        );
+
+        topTracksElement.append(
+          $("<hr/>", {
+            
+          })
+        );
+        
+
 
         // const liElement = $("<li/>", {
         //   text: `${track.name}`
