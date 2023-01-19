@@ -29,7 +29,7 @@ const imgTrackArr = [
 ];
 
 function getTopArtists() {
-  const endpoint = `http://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${apikey}&format=json&limit=10`;
+  const endpoint = `https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists&api_key=${apikey}&format=json&limit=10`;
 
   fetch(endpoint)
     .then(function (response) {
@@ -89,7 +89,7 @@ function getTopArtists() {
 const topTracksElement = $("#top-track-list");
 
 function getTopTracks() {
-  const endpoint = `http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=${apikey}&format=json&limit=10`;
+  const endpoint = `https://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=${apikey}&format=json&limit=10`;
 
   fetch(endpoint)
     .then(function (response) {
@@ -134,13 +134,7 @@ function getTopTracks() {
           })
         );
 
-        topTracksElement.append(
-          $("<hr/>", {
-            
-          })
-        );
-        
-
+        topTracksElement.append($("<hr/>", {}));
 
         // const liElement = $("<li/>", {
         //   text: `${track.name}`
