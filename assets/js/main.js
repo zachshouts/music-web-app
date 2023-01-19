@@ -83,7 +83,7 @@ startSlide.on("click", function () {
 function findArtist() {
   topAlbums.empty();
   setInfoBox();
-  const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopAlbums&artist=${artist}&api_key=${apikey}&format=json&limit=10`;
+  const endpoint = `https://ws.audioscrobbler.com/2.0/?method=artist.getTopAlbums&artist=${artist}&api_key=${apikey}&format=json&limit=10`;
 
   fetch(endpoint)
     .then(function (response) {
@@ -147,7 +147,7 @@ function searchAlbum(artist) {
     albumJoin = encodeURIComponent("+");
   }
 
-  const target = `http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${apikey}&artist=${artistJoin}&album=${albumJoin}&format=json`;
+  const target = `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${apikey}&artist=${artistJoin}&album=${albumJoin}&format=json`;
 
   fetch(target)
     .then(function (response) {
@@ -194,7 +194,7 @@ function searchAlbum(artist) {
 //Display Info Box
 function setInfoBox() {
   topTracks.empty();
-  const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&artist=${artist}&api_key=${apikey}&format=json&limit=10`;
+  const endpoint = `https://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&artist=${artist}&api_key=${apikey}&format=json&limit=10`;
 
   fetch(endpoint)
     .then(function (response) {
