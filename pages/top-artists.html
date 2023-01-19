@@ -28,8 +28,14 @@
     <header class="row" id="nav-bar">
       <nav class="navbar bg-body-primary">
         <div class="container-fluid">
-          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-lg-4">
-            <li><a href="../index.html" class="navbar-brand text-secondary mx-4">Home</a></li>
+          <ul
+            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 mx-lg-4"
+          >
+            <li>
+              <a href="../index.html" class="navbar-brand text-secondary mx-4"
+                >Home</a
+              >
+            </li>
           </ul>
         </div>
       </nav>
@@ -40,12 +46,12 @@
         <div class="card">
           <h3 class="card-title p-3">Top Artists</h3>
           <div class="card-body">
-            <div class="row g-0">
-              <div class="col-1">#</div>
+            <div id="artist-header" class="row align-items-center g-0">
+              <div class="col-1 fs-2">#</div>
               <div class="col-2"></div>
-              <div class="col-3">Name</div>
-              <div class="col-3">Listeners</div>
-              <div class="col-3">Playcount</div>
+              <div class="col-3 text-danger">Name</div>
+              <div class="col-3 text-warning">Listeners</div>
+              <div class="col-3 text-playcount-10">Playcount</div>
             </div>
             <hr />
             <div id="top-article-list" class="row g-0"></div>
