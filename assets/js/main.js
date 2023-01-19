@@ -10,30 +10,29 @@ const glideConfig = {
   length: 10,
   focusAt: "center",
   startAt: 1,
-  // autoplay: 4000,
+  autoplay: 4000,
   breakpoints: {
     768: { perView: 1 },
     1200: { perView: 2 },
     1300: { perView: 3 },
-    1700: { perView: 4 }
-  }
-}
-let glide = new Glide('.glide', glideConfig).mount()
-const glidesList = $('.glide__slides')
-const button = $("#submit-btn");
-const infoBtn = $('#info-btn');
-const infoBox = $('#info-box');
-const topTracks = $('#top-track-list');
-const topAlbums = $('#top-albums-list');
+    1700: { perView: 4 },
+  },
+};
+let glide = new Glide(".glide", glideConfig).mount();
+const glidesList = $(".glide__slides");
+const submitButton = $("#submit-btn");
+const infoBtn = $("#info-btn");
+const infoBox = $("#info-box");
+const topTracks = $("#top-track-list");
+const topAlbums = $("#top-albums-list");
 const searchBox = $(".form-control");
 
 let nameArr = JSON.parse(localStorage.getItem("artistHistory") || "[]");
 
-loadHistory();
-
+displayHistory();
 
 //Load past searches
-function loadHistory() {
+function displayHistory() {
   const historyList = $(".list-group");
   historyList.empty();
   if (nameArr.length > 6) {
@@ -58,10 +57,9 @@ function artistInfo(event) {
 }
 
 //Set up search box
-button.on("click", function (event) {
+submitButton.on("click", function (event) {
   event.preventDefault();
   searchArtist();
-  
 });
 
 //Find artist info from search box
@@ -74,11 +72,10 @@ function searchArtist() {
 }
 
 //Set up modal
-// const myModal = new bootstrap.Modal(document.getElementById("myModal"));
-const modalBtn = document.getElementById("modal-button");
 startSlide = $(".glide__slides");
 startSlide.attr("data-bs-toggle", "modal");
 startSlide.attr("data-bs-target", "#myModal");
+
 //Display modal
 startSlide.on("click", function () {
   searchAlbum(artist);
@@ -96,9 +93,10 @@ function findArtist() {
 
     //Retrieve artist data
     .then(function (data) {
+      artist = data.topalbums["@attr"].artist;
       for (let i = 0; i < 10; i++) {
         // Glide rendering
-        const liItem = $(`.glide-${i+1}`)
+        const liItem = $(`.glide-${i + 1}`);
         for (let x = 0; x < liItem.length; x++) {
           liItem[
             x
@@ -106,12 +104,16 @@ function findArtist() {
         }
 
         // Info box albums rendering
-        const newRow = $('<div>').addClass('row');
-        const bigCol = $('<div>').addClass('col-8');
-        const smallCol = $('<div>').addClass('col-4').attr('style', 'text-align: center;');
+        const newRow = $("<div>").addClass("row");
+        const bigCol = $("<div>").addClass("col-8");
+        const smallCol = $("<div>")
+          .addClass("col-4")
+          .attr("style", "text-align: center;");
 
-        bigCol.append($('<p>').addClass('px-3').text(data.topalbums.album[i].name));
-        smallCol.append($('<p>').text(data.topalbums.album[i].playcount));
+        bigCol.append(
+          $("<p>").addClass("px-3").text(data.topalbums.album[i].name)
+        );
+        smallCol.append($("<p>").text(data.topalbums.album[i].playcount));
         newRow.append(bigCol, smallCol);
         topAlbums.append(newRow);
       }
@@ -131,12 +133,12 @@ function findArtist() {
         nameArr.unshift(artistName);
 
         localStorage.setItem("artistHistory", JSON.stringify(nameArr));
-        loadHistory();
+        displayHistory();
       }
     });
 }
 
-
+//Retrive song information from album
 function searchAlbum(artist) {
   let currentSlide = $(".glide__slide--active");
   let album = currentSlide.children("p").text();
@@ -163,51 +165,55 @@ function searchAlbum(artist) {
       try {
         if (!Array.isArray(data.album.tracks.track)) {
           albumTrack.append($(`<li>`).text(data.album.tracks.track.name));
-          
         } else {
           for (i = 0; i < data.album.tracks.track.length; i++) {
             albumTrack.append($(`<li>`).text(data.album.tracks.track[i].name));
           }
         }
-      } catch (exceptionError){
+      } catch (exceptionError) {
         window.alert("Tracks are unavailable for this album");
       }
     });
 }
 
+//Display Info Box
 function setInfoBox() {
   topTracks.empty();
-  const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&artist=${artist}&api_key=${apikey}&format=json&limit=10`
-  
-    fetch(endpoint)
-      .then(function(response) {
-        return response.json();
-      })
-  
-      .then(function(data) {
-        for (let i = 0; i < 10; i++){
-          const newRow = $('<div>').addClass('row');
-          const bigCol = $('<div>').addClass('col-8');
-          const smallCol = $('<div>').addClass('col-4').attr('style', 'text-align: center;');
-  
-          bigCol.append($('<p>').addClass('px-3').text(data.toptracks.track[i].name));
-          smallCol.append($('<p>').text(data.toptracks.track[i].playcount));
-          newRow.append(bigCol, smallCol);
-          topTracks.append(newRow);
-        }
-      })
+  const endpoint = `http://ws.audioscrobbler.com/2.0/?method=artist.getTopTracks&artist=${artist}&api_key=${apikey}&format=json&limit=10`;
+
+  fetch(endpoint)
+    .then(function (response) {
+      return response.json();
+    })
+
+    .then(function (data) {
+      for (let i = 0; i < 10; i++) {
+        const newRow = $("<div>").addClass("row");
+        const bigCol = $("<div>").addClass("col-8");
+        const smallCol = $("<div>")
+          .addClass("col-4")
+          .attr("style", "text-align: center;");
+
+        bigCol.append(
+          $("<p>").addClass("px-3").text(data.toptracks.track[i].name)
+        );
+        smallCol.append($("<p>").text(data.toptracks.track[i].playcount));
+        newRow.append(bigCol, smallCol);
+        topTracks.append(newRow);
+      }
+    });
 }
 
-infoBtn.on('click', function(e) {
-  if (e.target.textContent === 'View More') {
+//More Info Button
+infoBtn.on("click", function (e) {
+  if (e.target.textContent === "View More") {
     e.target.textContent = "View Less";
-    infoBox.attr('style', 'visibility: visible;');
-    
+    infoBox.attr("style", "visibility: visible;");
   } else {
     e.target.textContent = "View More";
-    infoBox.attr('style', 'visibility: hidden;');
+    infoBox.attr("style", "visibility: hidden;");
   }
+});
 
-})
-
+//Inital Page Display
 findArtist();
