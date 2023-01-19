@@ -19,7 +19,6 @@ const glideConfig = {
   },
 };
 let glide = new Glide(".glide", glideConfig).mount();
-const glidesList = $(".glide__slides");
 const submitButton = $("#submit-btn");
 const infoBtn = $("#info-btn");
 const infoBox = $("#info-box");
@@ -72,7 +71,7 @@ function searchArtist() {
 }
 
 //Set up modal
-startSlide = $(".glide__slides");
+let startSlide = $(".glide__slides");
 startSlide.attr("data-bs-toggle", "modal");
 startSlide.attr("data-bs-target", "#myModal");
 

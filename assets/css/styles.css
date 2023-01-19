@@ -85,6 +85,7 @@ hr {
   color: white;
   border-color: white;
   box-shadow: 1px 1px 5px #47FFBE, -1px -1px 3px #47FFBE;
+  border-radius: 10px;
 }
 
 #submit-btn {
