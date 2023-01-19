@@ -19,6 +19,6 @@ The following image shows the web application's appearance and functionality:
 
 ## Deployed
 
-[Click here for deployed weather app](https://zachshouts.github.io/music-web-app/)
+[Click here for deployed music app](https://zachshouts.github.io/music-web-app/)
 - - -
 © 2022 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
