@@ -1,4 +1,4 @@
-#  Music Web App
+#  Banana Music
 
 ## Description
 
