@@ -8,7 +8,7 @@ The following application presents the user with an interactive webpage to searc
 
 Html, javascript, css, jquery, bootstrap, and use of 3rd party api from last.fm.
 
-## Collaberators
+## Collaborators
 Greg Trahan, Zach Shouts, Cong Thanh Pham, Mugess Khaki, Brent Johnson
 
 ## Mock-Up
